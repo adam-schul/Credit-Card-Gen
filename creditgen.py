@@ -1,5 +1,5 @@
 
-import copy, sys, random, pandas, csv, os
+import copy, sys, random, pandas, csv, os, shutil
 
 from pandas import DataFrame
 
@@ -61,15 +61,19 @@ for i in range(5000):
     else:
         pass
 
+filename = str('crdtnums' + str(random.randint(0,999)) + '.csv')
 
 df = DataFrame(validnum, columns=['Number', 'Company'])
-with open('crdtnums.csv', 'w') as csvfile:
+with open(filename, 'w') as csvfile:
     filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     filewriter.writerow(['Company', 'Number'])
     for i in range(len(validnum)):
         company = validnum[i][0]
         number = validnum[i][1]
         filewriter.writerow([company, number])
+
+shutil.move('/Users/aschulman/Documents/pythonCode/Credit-Card-Gen/' + filename,
+             '/Users/aschulman/Documents/pythonCode/' + filename)
 
 print(df)
 
